@@ -46,24 +46,45 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64_blas_implblis</td>
+              <td>osx_64_blas_implblishdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implblis" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implblishdf51.14.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_blas_implmkl</td>
+              <td>osx_64_blas_implblishdf52</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implmkl" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implblishdf52" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_blas_implopenblas</td>
+              <td>osx_64_blas_implmklhdf51.14.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblas" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implmklhdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implmklhdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implmklhdf52" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implopenblashdf51.14.6</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblashdf51.14.6" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_64_blas_implopenblashdf52</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=29187&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nrgljubljana-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_blas_implopenblashdf52" alt="variant">
                 </a>
               </td>
             </tr>

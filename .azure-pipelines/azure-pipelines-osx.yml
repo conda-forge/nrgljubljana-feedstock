@@ -8,8 +8,8 @@ jobs:
     vmImage: $(VMIMAGE)
   strategy:
     matrix:
-      osx_64_blas_implblis:
-        CONFIG: osx_64_blas_implblis
+      osx_64_blas_implblishdf51.14.6:
+        CONFIG: osx_64_blas_implblishdf51.14.6
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -18,8 +18,8 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_64_blas_implmkl:
-        CONFIG: osx_64_blas_implmkl
+      osx_64_blas_implblishdf52:
+        CONFIG: osx_64_blas_implblishdf52
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld
@@ -28,8 +28,38 @@ jobs:
         resize_partitions: false
         store_build_artifacts: false
         tools_install_dir: ~/miniforge3
-      osx_64_blas_implopenblas:
-        CONFIG: osx_64_blas_implopenblas
+      osx_64_blas_implmklhdf51.14.6:
+        CONFIG: osx_64_blas_implmklhdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+      osx_64_blas_implmklhdf52:
+        CONFIG: osx_64_blas_implmklhdf52
+        UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+      osx_64_blas_implopenblashdf51.14.6:
+        CONFIG: osx_64_blas_implopenblashdf51.14.6
+        UPLOAD_PACKAGES: 'True'
+        VMIMAGE: macOS-15
+        build_workspace_dir: ~/miniforge3/conda-bld
+        free_disk_space: skip
+        pagefile_size: 0
+        resize_partitions: false
+        store_build_artifacts: false
+        tools_install_dir: ~/miniforge3
+      osx_64_blas_implopenblashdf52:
+        CONFIG: osx_64_blas_implopenblashdf52
         UPLOAD_PACKAGES: 'True'
         VMIMAGE: macOS-15
         build_workspace_dir: ~/miniforge3/conda-bld

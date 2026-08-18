@@ -29,7 +29,7 @@ hdf5:
 libboost_devel:
 - '1.88'
 mpich:
-- '4'
+- '5'
 target_platform:
 - linux-64
 zip_keys:

@@ -29,13 +29,13 @@ gsl:
 hdf5:
 - 1.14.6
 libboost_devel:
-- '1.88'
+- '1.90'
 llvm_openmp:
 - '21'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 mpich:
-- '4'
+- '5'
 target_platform:
 - osx-64
 zip_keys:

@@ -10,7 +10,7 @@ source:
   sha256: 00457de5ac001c6df78e1dc8cdb246eb536736be67aa130e8ce04314871112c0
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   ignore_run_exports_from:
     # fmt is used as a header-only library, so no libfmt runtime link is needed.

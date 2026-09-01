@@ -10,7 +10,7 @@ source:
   sha256: 00457de5ac001c6df78e1dc8cdb246eb536736be67aa130e8ce04314871112c0
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win]
   ignore_run_exports_from:
     # fmt is used as a header-only library, so no libfmt runtime link is needed.
@@ -53,6 +53,7 @@ requirements:
 test:
   commands:
     - test -x "${PREFIX}/bin/nrg"  # [unix]
+    - nrg -h  # [linux and aarch64]
     - test -x "${PREFIX}/bin/adapt"  # [unix]
     - test -x "${PREFIX}/bin/instantiate"  # [unix]
     - test -x "${PREFIX}/nrginit/nrginit"  # [unix]

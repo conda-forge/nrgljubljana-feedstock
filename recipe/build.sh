@@ -22,26 +22,19 @@ cmake --build build --parallel "${CPU_COUNT:-1}"
 
 cmake --install build
 
+# Let Conda manage PATH; invoke the original launcher in its resource directory.
+cat > "${PREFIX}/bin/nrginit" <<'NRGINIT_EOF'
+#!/bin/bash
+exec "$(dirname "${BASH_SOURCE[0]}")/../nrginit/nrginit" "$@"
+NRGINIT_EOF
+chmod 755 "${PREFIX}/bin/nrginit"
+
 mkdir -p "${PREFIX}/etc/conda/activate.d" "${PREFIX}/etc/conda/deactivate.d"
 
 cat > "${PREFIX}/etc/conda/activate.d/nrgljubljana.sh" <<'ACTIVATE_EOF'
 export NRGLJUBLJANA_ROOT="${CONDA_PREFIX}"
-
-if [ "${NRGLJUBLJANA_CONDA_PATH_BACKUP+x}" != "x" ]; then
-  export NRGLJUBLJANA_CONDA_PATH_BACKUP="${PATH:-}"
-fi
-
-case ":${PATH:-}:" in
-  *":${CONDA_PREFIX}/nrginit:"*) ;;
-  *) export PATH="${CONDA_PREFIX}/nrginit${PATH:+:${PATH}}" ;;
-esac
 ACTIVATE_EOF
 
 cat > "${PREFIX}/etc/conda/deactivate.d/nrgljubljana.sh" <<'DEACTIVATE_EOF'
-if [ "${NRGLJUBLJANA_CONDA_PATH_BACKUP+x}" = "x" ]; then
-  export PATH="${NRGLJUBLJANA_CONDA_PATH_BACKUP}"
-  unset NRGLJUBLJANA_CONDA_PATH_BACKUP
-fi
-
-unset NRGLJUBLJANA_ROOT
+unset NRGLJUBLJANA_ROOT NRGLJUBLJANA_CONDA_PATH_BACKUP
 DEACTIVATE_EOF

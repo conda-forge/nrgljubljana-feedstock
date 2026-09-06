@@ -114,3 +114,66 @@ jobs:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
       FEEDSTOCK_TOKEN: $(FEEDSTOCK_TOKEN)
       STAGING_BINSTAR_TOKEN: $(STAGING_BINSTAR_TOKEN)
+
+  - bash: |
+      conda_bld="$(build_workspace_dir)"
+      conda_bld="${conda_bld/#\~/${HOME}}"
+      if [[ -d "$conda_bld" ]]; then
+        echo "##vso[task.setvariable variable=rehearsal_conda_bld]${conda_bld}"
+        echo "##vso[task.setvariable variable=rehearsal_has_workspace]true"
+      fi
+    displayName: Locate rehearsal build artifacts
+    condition: succeededOrFailed()
+    continueOnError: true
+
+  - task: CopyFiles@2
+    displayName: Collect NRG packages and diagnostics
+    condition: and(succeededOrFailed(), eq(variables['rehearsal_has_workspace'], 'true'))
+    continueOnError: true
+    inputs:
+      SourceFolder: '$(rehearsal_conda_bld)'
+      # work* includes conda-build's work_moved_* directories.
+      Contents: |
+        osx-*/nrgljubljana-*.conda
+        osx-*/nrgljubljana-*.tar.bz2
+        broken/nrgljubljana-*.conda
+        broken/nrgljubljana-*.tar.bz2
+        nrgljubljana_*/**/info/recipe/*.yaml
+        nrgljubljana_*/work*/metadata_conda_debug.yaml
+        nrgljubljana_*/work*/**/CMakeCache.txt
+        nrgljubljana_*/work*/**/CMakeFiles/CMakeConfigureLog.yaml
+        nrgljubljana_*/work*/**/CMakeFiles/CMake*.log
+        nrgljubljana_*/work*/**/Testing/Temporary/*.log
+        nrgljubljana_*/work*/**/Testing/Temporary/*.txt
+        nrgljubljana_*/work*/**/Testing/**/Test.xml
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/$(CONFIG)/conda-bld'
+
+  - task: CopyFiles@2
+    displayName: Collect recipe provenance
+    condition: succeededOrFailed()
+    continueOnError: true
+    inputs:
+      SourceFolder: '$(Build.SourcesDirectory)'
+      Contents: |
+        recipe/meta.yaml
+        recipe/build.sh
+        .ci_support/$(CONFIG).yaml
+        .ci_support/clobber_$(CONFIG).yaml
+      TargetFolder: '$(Build.ArtifactStagingDirectory)/$(CONFIG)/feedstock'
+
+  - bash: |
+      artifacts="$(Build.ArtifactStagingDirectory)/$(CONFIG)"
+      if [[ -d "$artifacts" ]] && [[ -n "$(find "$artifacts" -type f -print -quit)" ]]; then
+        echo "##vso[task.setvariable variable=rehearsal_has_artifacts]true"
+      fi
+    displayName: Check for retained files
+    condition: succeededOrFailed()
+    continueOnError: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: Retain rehearsal artifacts
+    condition: and(succeededOrFailed(), eq(variables['rehearsal_has_artifacts'], 'true'))
+    continueOnError: true
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(CONFIG)'
+      ArtifactName: 'rehearsal-$(CONFIG)-$(System.JobAttempt)'

@@ -1,16 +1,16 @@
 {% set name = "nrgljubljana" %}
-{% set version = "2026.06.1" %}
+{% set version = "2026.09.dev0" %}
 
 package:
   name: {{ name|lower }}
   version: "{{ version }}"
 
 source:
-  url: https://github.com/rokzitko/nrgljubljana/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 00457de5ac001c6df78e1dc8cdb246eb536736be67aa130e8ce04314871112c0
+  url: https://github.com/rokzitko/nrgljubljana/archive/980459f8b748adf005ca2768d5c66b95106f5a26.tar.gz
+  sha256: 898ffdaed6f85414f5e3aeefacfe096814ecc32e6b01d5e31c4eda92572011b6
 
 build:
-  number: 5
+  number: 0
   skip: true  # [win]
   ignore_run_exports_from:
     # fmt is used as a header-only library, so no libfmt runtime link is needed.

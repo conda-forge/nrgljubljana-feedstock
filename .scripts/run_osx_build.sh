@@ -114,6 +114,7 @@ else
 
     CONDA_SUBDIR="${BUILD_PLATFORM}" conda-build ./recipe -m ./.ci_support/${CONFIG}.yaml \
         --suppress-variables ${EXTRA_CB_OPTIONS:-} \
+        --no-anaconda-upload \
         --clobber-file ./.ci_support/clobber_${CONFIG}.yaml \
         --extra-meta flow_run_id="$flow_run_id" remote_url="$remote_url" sha="$sha"
 
@@ -131,6 +132,8 @@ else
 
     ( startgroup "Uploading packages" ) 2> /dev/null
 
+    # Rehearsal only: never publish candidate packages, even from fork pushes.
+    export UPLOAD_PACKAGES="False"
     if [[ "${UPLOAD_PACKAGES}" != "False" ]] && [[ "${IS_PR_BUILD}" == "False" ]]; then
       upload_package --validate --feedstock-name="${FEEDSTOCK_NAME}" ./ ./recipe ./.ci_support/${CONFIG}.yaml
     fi

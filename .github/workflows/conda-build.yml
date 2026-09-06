@@ -14,6 +14,8 @@ concurrency:
 
 jobs:
   build:
+    # Rehearsal runs on the upstream PR, not again on pushes to the fork.
+    if: github.event_name == 'pull_request'
     name: ${{ matrix.CONFIG }}
     runs-on: ${{ matrix.runs_on }}
     timeout-minutes: 360
@@ -214,3 +216,31 @@ jobs:
         BINSTAR_TOKEN: ${{ secrets.BINSTAR_TOKEN }}
         FEEDSTOCK_TOKEN: ${{ secrets.FEEDSTOCK_TOKEN }}
         STAGING_BINSTAR_TOKEN: ${{ secrets.STAGING_BINSTAR_TOKEN }}
+
+    - name: Retain rehearsal artifacts
+      if: always()
+      continue-on-error: true
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      with:
+        name: rehearsal-${{ matrix.CONFIG }}-${{ github.run_attempt }}
+        retention-days: 14
+        if-no-files-found: ignore
+        include-hidden-files: true # Include the explicitly selected .ci_support files.
+        # work* includes conda-build's work_moved_* directories.
+        path: |
+          build_artifacts/linux-*/nrgljubljana-*.conda
+          build_artifacts/linux-*/nrgljubljana-*.tar.bz2
+          build_artifacts/broken/nrgljubljana-*.conda
+          build_artifacts/broken/nrgljubljana-*.tar.bz2
+          build_artifacts/nrgljubljana_*/**/info/recipe/*.yaml
+          build_artifacts/nrgljubljana_*/work*/metadata_conda_debug.yaml
+          build_artifacts/nrgljubljana_*/work*/**/CMakeCache.txt
+          build_artifacts/nrgljubljana_*/work*/**/CMakeFiles/CMakeConfigureLog.yaml
+          build_artifacts/nrgljubljana_*/work*/**/CMakeFiles/CMake*.log
+          build_artifacts/nrgljubljana_*/work*/**/Testing/Temporary/*.log
+          build_artifacts/nrgljubljana_*/work*/**/Testing/Temporary/*.txt
+          build_artifacts/nrgljubljana_*/work*/**/Testing/**/Test.xml
+          recipe/meta.yaml
+          recipe/build.sh
+          .ci_support/${{ matrix.CONFIG }}.yaml
+          .ci_support/clobber_${{ matrix.CONFIG }}.yaml

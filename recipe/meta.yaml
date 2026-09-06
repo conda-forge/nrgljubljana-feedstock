@@ -10,7 +10,7 @@ source:
   sha256: aa80b3d7a70c157cf9fee870e2f82dfd10e48506977b301d8802e376f5493f6f
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   ignore_run_exports_from:
     # fmt is used as a header-only library, so no libfmt runtime link is needed.
@@ -64,7 +64,8 @@ test:
     - test -f "${PREFIX}/lib/cmake/nrgljubljana/nrgljubljana-config.cmake"  # [unix]
     - test -f "${PREFIX}/etc/conda/activate.d/nrgljubljana.sh"  # [unix]
     - test -f "${PREFIX}/etc/conda/deactivate.d/nrgljubljana.sh"  # [unix]
-    - grep -q 'CONDA_PREFIX}/nrginit' "${PREFIX}/etc/conda/activate.d/nrgljubljana.sh"  # [unix]
+    - test -x "${PREFIX}/bin/nrginit"  # [unix]
+    - nrginit -h  # [unix]
 
 about:
   home: https://github.com/rokzitko/nrgljubljana

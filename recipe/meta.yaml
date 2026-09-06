@@ -6,11 +6,11 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://github.com/rokzitko/nrgljubljana/archive/980459f8b748adf005ca2768d5c66b95106f5a26.tar.gz
-  sha256: 898ffdaed6f85414f5e3aeefacfe096814ecc32e6b01d5e31c4eda92572011b6
+  url: https://github.com/rokzitko/nrgljubljana/archive/d2efd77f3327f8ec27ccdbc344bc76235bfe7f7c.tar.gz
+  sha256: 2e5931da1ef5ae30346cc2463486a52d16a9f5eaee4f49d60b1c3f5d28f974c6
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   ignore_run_exports_from:
     # fmt is used as a header-only library, so no libfmt runtime link is needed.
